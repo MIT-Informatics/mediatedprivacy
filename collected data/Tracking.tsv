@@ -1,0 +1,10 @@
+publisher	collection	time	encryption	encryption:notes	advertisement	advertisement:notes	external_resources	external_resources:notes	cookies	cookies:notes	reader_tracking	reader_tracking:notes	fingerprinting	fingerprinting:notes
+Elsevier	main		1	Force to https everywhere	5	Third party ads in library branded content	4	Google analytics; Usabilla; MathJax (innocuous) Akamai impulse; Adobe	4	Third party tracking cookies - doubleclick	4	Defaults to reader, but no personalization	5	Canvas, Webgl, on abstract pages
+Wiley	main		1	Force to https everywhere	5	Third party ads in library branded content	4	Google Analytics; Adobe; Beacon.kxcd.net (salesforce)	4	Third party tracking cookies - doubleclick; google ads	3	Nudges to readcube w/signon	4	Canvas, within online-pdf viewer pages
+Ebsco	main		4	Breaks under https	1	No ads	2	Google analytics	1	No third party	1	No external reader	1	No fingerprinting
+Ebsco	open		4	Breaks under https	1	No ads	2	Google analytics	1	No third party	1	No external reader	1	No fingerprinting
+Proquest	main		2	Includes non https elements	1	No ads	3	Visual web optimization	1	No third party	1	No external reader	1	No fingerprinting
+Proquest	open		1	Supports HTPS everywhere	1	No ads	2	Google analytics	1	No third party	1	No external reader	1	No fingerprinting
+TF	main		1	Force to https everywhere	4	T&F subsidiaries & services	5	Google analytics; facebook; twitter; Hotjar (hover tracking)	4	Third party tracking cookies - doubleclick; google ads	3	Nudge to colviz with signon	3	Canvas, within online-pdf viewer pages
+Springer	main		1	Supports HTTPS everywhere	2	Section on page labeled for advertisement, but none shown	2	Google analytics; external fonts	4	Third party tracking cookies - doubleclick; google ads, krxd	1	No external reader	1	No fingerprinting
+Springer	open		1	Supports HTTPS everywhere	2	Section on page labeled for advertisement, but none shown	2	Google analytics; external fonts	4	Third party tracking cookies - doubleclick; google ads, krxd	1	No external reader	1	No fingerprinting
