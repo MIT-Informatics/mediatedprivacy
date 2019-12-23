@@ -28,7 +28,17 @@ plot(p)
 
 subset(readability.df,subset=document!="main" & time == "post")
 ```
-*Random Explorability*
+```{r , include = FALSE}
+tracking.df <- read_tsv(file="Tracking.tsv")
+```
+```{r}
+tm<-as.matrix(subset(trackingn.df,select=setdiff(names(trackingn.df),c("publisher","collection"))))
+rownames(tm)<-paste(trackingn.df$publisher,trackingn.df$collection,sep=".")
+heatmap(tm)
+```
+
+
+*EDA*
 ```{r}
 library(devtools1)
 devtools::install_github("joachim-gassen/ExPanDaR")
