@@ -26,4 +26,11 @@ plot(p)
 
 subset(readability.df,subset=document!="main" & time == "post")
 ```
+*Random Explorability*
+```{r}
+library(devtools1)
+devtools::install_github("joachim-gassen/ExPanDaR")
+library(ExPanDaR)
+ExPanD(subset(readability.df,document=="main" & time == "post"))
+```
 
