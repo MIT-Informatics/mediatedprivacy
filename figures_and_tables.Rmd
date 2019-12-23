@@ -1,0 +1,29 @@
+---
+title: "Figures and Derived Tables for Privacy of Mediated Library Services"
+output: html_notebook
+root.dir: "./collected data/"
+---
+
+```{r setup, include=FALSE}
+require("knitr")
+require(tidyr)
+require(readr)
+require(ggplot2)
+opts_knit$set(root.dir = "./collected data/")
+setwd("./collected data/")
+```
+*Readability analysis*
+```{r , include = FALSE}
+readability.df <- read_tsv(file="Readability.tsv")
+```
+```{r}
+readprepost.tab <- xtabs(data = readability.df, formula = `readability`~ publisher + time , subset = document=="main")
+ftable(readprepost.tab)
+
+p<-ggplot(data=subset(readability.df, document=="main" & time == "post"),    aes(x=publisher, y=`readability`)) +
+  geom_bar(stat="identity")
+plot(p)
+
+subset(readability.df,subset=document!="main" & time == "post")
+```
+
