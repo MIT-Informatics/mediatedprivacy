@@ -19,6 +19,8 @@ readability.df <- read_tsv(file="Readability.tsv")
 ```{r}
 readprepost.tab <- xtabs(data = readability.df, formula = `readability`~ publisher + time , subset = document=="main")
 ftable(readprepost.tab)
+p<-ggplot(data=subset(readability.df, document=="main" ),    aes(x=time, y=`readability`)) + geom_boxplot()
+plot(p)
 
 p<-ggplot(data=subset(readability.df, document=="main" & time == "post"),    aes(x=publisher, y=`readability`)) +
   geom_bar(stat="identity")
