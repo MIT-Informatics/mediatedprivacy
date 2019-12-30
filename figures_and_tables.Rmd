@@ -9,8 +9,11 @@ require("knitr")
 require(tidyr)
 require(readr)
 require(ggplot2)
+require(dplyr)
+require(magrittr)
 opts_knit$set(root.dir = "./collected data/")
-setwd("./collected data/")
+# will need tis if not using Knitr
+#setwd("./collected data/") 
 ```
 *Readability analysis*
 ```{r , include = FALSE}
@@ -42,9 +45,16 @@ heatmap.2(t(tm),dendrogram="column",key=TRUE, density.info="none", trace="none",
 
 *EDA*
 ```{r}
-library(devtools1)
-devtools::install_github("joachim-gassen/ExPanDaR")
+#library(devtools1)
+#devtools::install_github("joachim-gassen/ExPanDaR")
 library(ExPanDaR)
 ExPanD(subset(readability.df,document=="main" & time == "post"))
+```
+* Main Policy Analysis*
+```{r , include = FALSE}
+require(readxl)
+policy.df <- bind_rows(sapply((1:12),function(x)read_excel("publisher_ratings.xlsx",sheet=x)))
+rubric.df <- read_excel("evaluation_rubric.xlsx" , sheet = 1)
+policy.df %<>% rowwise  %>% mutate(rating = mean(c(`rater:1`,`rater:2`,`rater:3`),na.rm=TRUE))
 ```
 
