@@ -11,6 +11,8 @@ require(readr)
 require(ggplot2)
 require(dplyr)
 require(magrittr)
+require(janitor)
+require(gplots)
 opts_knit$set(root.dir = "./collected data/")
 # will need tis if not using Knitr
 #setwd("./collected data/") 
@@ -33,12 +35,13 @@ subset(readability.df,subset=document!="main" & time == "post")
 ```
 ```{r , include = FALSE}
 tracking.df <- read_tsv(file="Tracking.tsv")
+ntrack.df <- tracking.df %>% 
+select(grep("notes",names(tracking.df),value=TRUE,invert=TRUE))
 ```
 ```{r}
-tm<-as.matrix(subset(trackingn.df,select=setdiff(names(trackingn.df),c("publisher","collection"))))
-rownames(tm)<-paste(trackingn.df$publisher,trackingn.df$collection,sep=".")
+tm<-as.matrix(subset(ntrack.df,time="post",select=setdiff(names(ntrack.df),c("publisher","collection","time"))))
+rownames(tm)<-paste(ntrack.df$publisher,ntrack.df$collection,sep=".")
 #heatmap(tm)
-require(gplots)
 heatmap.2(t(tm),dendrogram="column",key=TRUE, density.info="none", trace="none",margins=c(10,15),col=rev(grey.colors(5)))
 ```
 
@@ -56,5 +59,23 @@ require(readxl)
 policy.df <- bind_rows(sapply((1:12),function(x)read_excel("publisher_ratings.xlsx",sheet=x)))
 rubric.df <- read_excel("evaluation_rubric.xlsx" , sheet = 1)
 policy.df %<>% rowwise  %>% mutate(rating = mean(c(`rater:1`,`rater:2`,`rater:3`),na.rm=TRUE))
+policy.df %<>% ungroup()
+policy.df %<>% left_join(select(rubric.df,c("question","label","category")))
+catpolicy.df <- policy.df %>% group_by(publisher,time,category) %>% summarize(catrating=mean(rating))
+```
+```{r}
+# mean of all question scores
+#policy.df %>% xtabs(rating~publisher+time,.)/length(unique(policy.df$question))
+
+#mean of category scores
+catpolicy.df %>% summarize(catmean=mean(catrating)) %>%
+xtabs(catmean~publisher+time,.)
+
+bycat.arr <- 
+  catpolicy.df %>% xtabs(catrating~category+publisher+time,.)
+ftable(bycat.arr)
+
+heatmap.2(t(bycat.arr[,,1]),dendrogram="column",key=TRUE, density.info="none", trace="none",margins=c(10,15),col=rev(grey.colors(5)))
+
 ```
 
