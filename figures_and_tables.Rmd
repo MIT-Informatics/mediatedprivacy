@@ -79,5 +79,7 @@ heatmap.2(t(bycat.arr[,,1]),dendrogram="column",key=TRUE, density.info="none", t
 
 policy.df %>%  ggplot(aes(question,rating)) +geom_jitter(aes(color=time)) +facet_grid(publisher~time)
 
+catpolicy.df %>%  ggplot(aes(publisher,catrating)) +geom_col(aes(fill=publisher)) +facet_grid(category~time)
+
 ```
 
