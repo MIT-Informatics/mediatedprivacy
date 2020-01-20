@@ -45,14 +45,6 @@ rownames(tm)<-paste(ntrack.df$publisher,ntrack.df$collection,sep=".")
 heatmap.2(t(tm),dendrogram="column",key=TRUE, density.info="none", trace="none",margins=c(10,15),col=rev(grey.colors(5)))
 ```
 
-
-*EDA*
-```{r}
-#library(devtools1)
-#devtools::install_github("joachim-gassen/ExPanDaR")
-library(ExPanDaR)
-ExPanD(subset(readability.df,document=="main" & time == "post"))
-```
 * Main Policy Analysis*
 ```{r , include = FALSE}
 require(readxl)
@@ -79,7 +71,17 @@ heatmap.2(t(bycat.arr[,,1]),dendrogram="column",key=TRUE, density.info="none", t
 
 policy.df %>%  ggplot(aes(question,rating)) +geom_jitter(aes(color=time)) +facet_grid(publisher~time)
 
-catpolicy.df %>%  ggplot(aes(publisher,catrating)) +geom_col(aes(fill=publisher)) +facet_grid(category~time)
+catpolicy.df %>%  ggplot(aes(publisher,catrating)) +geom_col(aes(fill=category)) +facet_grid(category~time)
+
+policy.df %>%  ggplot(aes(question,rating)) +geom_jitter(aes(color=time)) +facet_grid(publisher~time)
 
 ```
 
+
+*EDA*
+```{r}
+#library(devtools1)
+#devtools::install_github("joachim-gassen/ExPanDaR")
+library(ExPanDaR)
+ExPanD(subset(readability.df,document=="main" & time == "post"))
+```
