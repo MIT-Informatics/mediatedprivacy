@@ -76,6 +76,12 @@ catpolicy.df %>%  ggplot(aes(publisher,catrating)) +geom_col(aes(fill=category))
 policy.df %>%  ggplot(aes(question,rating)) +geom_jitter(aes(color=time)) +facet_grid(publisher~time)
 
 ```
+```{r}
+require(ggiraph)
+require(ggiraphExtra)
+
+ggRadar(catpolicy.df %>% spread(category,catrating),aes(group=publisher,facet=time),rescale=FALSE, alpha=0.1)+theme_get()
+```
 
 
 *EDA*
